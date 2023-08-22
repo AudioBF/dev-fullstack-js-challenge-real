@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Students List</title>
     <link rel="stylesheet" href="css/layoutShared.css">
     <link rel="stylesheet" href="css/studentsList.css">
@@ -33,7 +32,7 @@
                     </form>
                     <button>Cadastrar Aluno</button>
                 </div>
-                <table class="table-list">
+                <table id="studentList" class="table-list">
                     <thead>
                         <tr>
                             <th>Registro Academico</th>
@@ -43,38 +42,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1598</td>
-                            <td>Aluno 1</td>
-                            <td>123.123.123-24</td>
-                            <td>
-                                <a href="#">Editar</a>
-                                <a href="#">Excluir</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1564</td>
-                            <td>Aluno 2</td>
-                            <td>111.123.123-24</td>
-                            <td>
-                                <a href="#">Editar</a>
-                                <a href="#">Excluir</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2587</td>
-                            <td>Aluno 3</td>
-                            <td>000.123.123-24</td>
-                            <td>
-                                <a href="#">Editar</a>
-                                <a href="#">Excluir</a>
-                            </td>
-                        </tr>
+                       
                     </tbody>
                 </table>
             </div>
         </div>
     </section>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="JS/studentsList.js"></script>
 </body>
 
 </html>
