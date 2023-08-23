@@ -7,7 +7,7 @@ module.exports = [
   },
   {
     nome: "Aluno 2",
-    email: "gamora@mal.com",
+    email: "karollinda@mal.com",
     cpf: "05645612355",
     ra: "1235"
   },
