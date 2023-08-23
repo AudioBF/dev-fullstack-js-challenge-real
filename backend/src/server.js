@@ -2,7 +2,7 @@ const express = require("express");
 
 var cors = require("cors");
 
-const database = require("./database")
+const database = require("./database");
 
 const app = express();
 app.use(cors());
@@ -12,14 +12,18 @@ app.get("/", function (req, res) {
 });
 
 app.get("/students/list", function (req, res) {
-  res.send(database);
+  setTimeout(function () {
+    res.send(database);
+  }, 900);
 });
 
-app.get("/students/find/:ra", function(req, res){
-  const studentFound = database.find(function(student){
+app.get("/students/find/:ra", function (req, res) {
+  const studentFound = database.find(function (student) {
     return student.ra == req.params.ra;
   });
-  res.send(studentFound);
+  setTimeout(function () {
+    res.send(studentFound);
+  }, 900);
 });
 
 app.listen(3000);

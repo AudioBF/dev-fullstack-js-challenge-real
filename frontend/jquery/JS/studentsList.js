@@ -9,7 +9,7 @@ function fetchStudentList() {
       return response.json();
     })
     .then(function (data) {
-        console.log(data);
+
       const table = $("#studentList tbody");
       data.map(function (student) {
         table.append(`
@@ -18,11 +18,14 @@ function fetchStudentList() {
                 <td>${student.nome}</td>
                 <td>${student.cpf}</td>
                 <td>
-                    <a href="#">Editar</a>
+                    <a href="studentManager.html?ra=${student.ra}">Editar</a>
                     <a href="#">Excluir</a>
                 </td>
             </tr>
         `);
       });
+
+      $(".loader").hide("fast")
+      $(".content-page").show("slow")
     });
 }

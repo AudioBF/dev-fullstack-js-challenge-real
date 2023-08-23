@@ -15,7 +15,7 @@
             Modulo Academico
         </header>
         <ul class="nav-links">
-            <a class="nav-item" href="#">
+            <a class="nav-item" href="studentsList.html">
                 <li>Alunos</li>
             </a>
         </ul>
@@ -24,8 +24,9 @@
         <header class="main-header">
             Cadastro de Aluno
         </header>
+        <div class="loader"></div>
         <div class="content-page padding-lr-20">
-            <form class="form" action="">
+            <form id="studentForm" class="form" action="">
                 <div class="form-group">
                     <label for="name">Nome</label>
                     <input type="text" name="name" id="name">
@@ -49,6 +50,10 @@
             </form>
         </div>
     </section>
+    
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="JS/studentsManager.js"></script>
+
 </body>
 
 </html>
