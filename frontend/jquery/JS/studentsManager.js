@@ -24,5 +24,7 @@ function fetchStudent() {
       });
   } else {
     alert("Ra nao encontrado");
+    $(".loader").hide("fast");
+    $(".content-page").show("slow");
   }
 }
