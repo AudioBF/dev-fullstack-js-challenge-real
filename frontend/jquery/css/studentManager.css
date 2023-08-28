@@ -22,6 +22,7 @@
     border-left: 1px solid gray;
 }
 .form .actions {
-    margin-top: 20px;
-    text-align: right;
+    margin-top: 20px;  
+    display: flex;
+    justify-content: right;
 }

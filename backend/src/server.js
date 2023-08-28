@@ -4,6 +4,7 @@ let database = require("./database");
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 
 app.get("/", function (req, res) {
   res.send("Hello World");
@@ -22,6 +23,16 @@ app.get("/students/find/:ra", function (req, res) {
   setTimeout(function () {
     res.send(studentFound);
   }, 900);
+});
+
+app.post("/students/save", (req, res) => {
+  database.push({
+    name: req.body.name,
+    email: req.body.email,
+    ra: req.body.ra,
+    cpf: req.body.cpf,
+  });
+  res.send({ result: true, message: "Estudante cadastrado com sucesso." });
 });
 
 app.delete("/students/delete/:ra", (req, res) => {

@@ -1,30 +1,53 @@
-body{
+body {
     display: flex;
     margin: 0px;
 }
 
-.padding-lr-20{
-    padding-left :20px;
+.padding-lr-20 {
+    padding-left: 20px;
     padding-right: 20px;
 }
+
 .btn {
     height: 40px;
     padding-left: 20px;
     padding-right: 20px;
     font-weight: bold;
+    text-decoration: none;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
 }
+
+.btn.btn-dark {
+    color: #fff;
+    background-color: #212529;
+    border-color: #212529;
+}
+
+.btn.btn-warning {
+    color: #000;
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
 .margin-left-10 {
     margin-left: 10px;
 }
-.margin-right-10{
+
+.margin-right-10 {
     margin-right: 10px;
 }
-.main-nav{
+
+.main-nav {
     background-color: #212529;
     width: 200px;
     height: 100vh;
 }
-.main-nav header{
+
+.main-nav header {
     font-size: 20px;
     font-weight: 600;
     color: white;
@@ -33,13 +56,14 @@ body{
     padding-bottom: 20px;
     border-bottom: 1px solid gray;
 }
-.main-nav .nav-links{
+
+.main-nav .nav-links {
     list-style: none;
     padding-left: 10px;
     padding-right: 10px;
 }
 
-.main-nav .nav-links a.nav-item  {
+.main-nav .nav-links a.nav-item {
     text-decoration: none;
     color: white;
     padding: 5px;
@@ -52,11 +76,11 @@ body{
     display: block;
 }
 
-.container{
+.container {
     width: 100%;
 }
 
-.container .main-header{
+.container .main-header {
     background-color: #21252990;
     width: 100%;
     height: 40px;
@@ -71,19 +95,26 @@ body{
     margin: auto;
     margin-top: 40px;
     margin-bottom: 40px;
-    border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
+    border: 16px solid #f3f3f3;
+    /* Light grey */
+    border-top: 16px solid #3498db;
+    /* Blue */
     border-radius: 50%;
     width: 120px;
     height: 120px;
     animation: spin 2s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+}
 
-  .display-none {
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.display-none {
     display: none;
-  }
+}

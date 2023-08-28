@@ -37,7 +37,7 @@ function fetchStudentList() {
         table.append(`
             <tr>
                 <td>${student.ra}</td>
-                <td>${student.nome}</td>
+                <td>${student.name}</td>
                 <td>${student.cpf}</td>
                 <td>
                     <a href="studentManager.html?ra=${student.ra}">Editar</a>
