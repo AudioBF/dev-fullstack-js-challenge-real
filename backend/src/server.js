@@ -68,16 +68,28 @@ app.put("/students/edit/:ra", (req, res) => {
   database = database.filter((student) => {
     return student.ra != req.params.ra;
   });
-  database.push({
-    name: req.body.name,
-    email: req.body.email,
-    ra: req.body.ra,
-    cpf: req.body.cpf,
-  });
-  res.send({
-    result: true,
-    message: "O estudante foi atualizando com sucesso!",
-  });
+  const { name, email, ra, cpf } = req.body;
+
+  const errors = [];
+
+  if (!name) errors.push("name");
+  if (!email) errors.push("email");
+  if (!ra) errors.push("ra");
+  if (!cpf) errors.push("cpf");
+
+  if (errors.length) {
+    res.status(400).send({
+      result: false,
+      message: `O ${errors.join(", ")} nao pode(m) ser(em) em branco`,
+      status: 400,
+    });
+    return;
+  }
+
+  database.push({ name, email, ra, cpf });
+  res
+    .status(200)
+    .send({ result: true, message: "Estudante foi atualizado com sucesso." });
 });
 
 app.delete("/students/delete/:ra", (req, res) => {
