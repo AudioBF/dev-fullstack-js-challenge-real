@@ -1,6 +1,7 @@
 $(document).ready(function () {
   if (isEditingMode()) {
     fetchStudent();
+    setReadOnlyFields();
   } else {
     $(".loader").hide();
     $(".content-page").show();
@@ -18,29 +19,32 @@ $(document).ready(function () {
     let methodEndPoint;
     let urlEndPoint;
 
-    if (isEditingMode()){
+    if (isEditingMode()) {
       methodEndPoint = "PUT";
-      urlEndPoint= `http://localhost:3000/students/edit/${getRAFromUrl()}`;
-    }else{
-      methodEndPoint="POST" ;
-      urlEndPoint=`http://localhost:3000/students/save`;
+      urlEndPoint = `http://localhost:3000/students/edit/${getRAFromUrl()}`;
+    } else {
+      methodEndPoint = "POST";
+      urlEndPoint = `http://localhost:3000/students/save`;
     }
-    
+
     fetch(urlEndPoint, {
-        method: methodEndPoint,
-        body: JSON.stringify(body),
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
+      method: methodEndPoint,
+      body: JSON.stringify(body),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        return response.json();
       })
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          alert(data.message);
-          document.location.href = "studentsList.html";
-        });
+      .then((data) => {
+        alert(data.message);
+        if (data.status === 400) {
+          return;
+        }
+        document.location.href = "studentsList.html";
+      });
   });
 });
 
@@ -60,6 +64,12 @@ function fetchStudent() {
       $(".loader").hide("fast");
       $(".content-page").show("slow");
     });
+}
+
+function setReadOnlyFields() {
+  const studentForm = $("#studentForm");
+  studentForm.find("#ra").attr("readonly", true);
+  studentForm.find("#cpf").attr("readonly", true);
 }
 
 function isEditingMode() {
