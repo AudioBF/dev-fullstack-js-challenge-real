@@ -50,7 +50,7 @@ app.get("/students/find/:ra", function (req, res) {
 
 app.post("/students/save", (req, res) => {
   database.push({
-    nome: req.body.name,
+    name: req.body.name,
     ra: req.body.ra,
     email: req.body.email,
     cpf: req.body.cpf,
