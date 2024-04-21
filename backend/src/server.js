@@ -16,25 +16,19 @@ app.get("/", function (req, res) {
 });
 
 app.get("/students/list/:searchQuery?", function (req, res) {
+  let query = app.database("students");
+
   let result = database;
   let search = req.params.searchQuery;
   if (search) {
-    search = search.toLowerCase();
-    result = result.filter((student) => {
-      return (
-        student.ra == search ||
-        student.name.toLowerCase().indexOf(search) != -1 ||
-        student.cpf == search
-      );
-    });
+    query
+      .where("ra", search)
+      .orwhere("nome", "like", `%${search}%`)
+      .orwhere("cpf", search);
   }
-
-  return app
-    .database("students")
-    .select()
-    .then((data) => {
-      res.send(data);
-    });
+  return query.select().then((data) => {
+    res.send(data);
+  });
 });
 
 app.get("/students/find/:ra", function (req, res) {
@@ -48,17 +42,76 @@ app.get("/students/find/:ra", function (req, res) {
     });
 });
 
-app.post("/students/save", (req, res) => {
-  database.push({
-    name: req.body.name,
-    ra: req.body.ra,
-    email: req.body.email,
-    cpf: req.body.cpf,
-  });
-  res.send({ result: true, message: "Estudante cadastrado com sucesso." });
+app.post("/students/save", async (req, res) => {
+  if (req.body.name == "") {
+    return res.status(400).send({ 
+      result: false, 
+      message: "Nome is required" });
+  }
+  if (req.body.email == "") {
+    return res
+      .status(400)
+      .send({ result: false, message: "Email is required" });
+  }
+  if (req.body.ra == "") {
+    return res.status(400).send({ result: false, message: "ra is required" });
+  }
+  if (req.body.cpf == "") {
+    return res.status(400).send({ result: false, message: "cpf is required" });
+  }
+
+  const userExists = await app
+    .database("students")
+    .select()
+    .where({
+      ra: req.body.ra,
+    })
+    .first();
+
+  if (userExists) {
+    return res.status(400).send({
+      result: false,
+      message: "RA User already exists.",
+    });
+  }
+
+  return app
+    .database("students")
+    .insert({
+      name: req.body.name,
+      ra: req.body.ra,
+      email: req.body.email,
+      cpf: req.body.cpf,
+    })
+    .then((response) => {
+      if (response) {
+        res.send({
+          result: true,
+          message: "Estudante cadastrado com sucesso!",
+        });
+      } else {
+        res.status(500).send({
+          result: false,
+          message: "Nao foi possivel cadastrar o estudante",
+        });
+      }
+    });
 });
 
 app.put("/students/edit/:ra", async (req, res) => {
+  if (req.body.name == "") {
+    return res.status(400).send({
+      result: false,
+      message: "Nome is required",
+    });
+  }
+  if (req.body.email == "") {
+    return res.status(400).send({
+      result: false,
+      message: "Email is required",
+    });
+  }
+
   const userFound = await app
     .database("students")
     .select()
@@ -96,14 +149,25 @@ app.put("/students/edit/:ra", async (req, res) => {
 });
 
 app.delete("/students/delete/:ra", (req, res) => {
-  database = database.filter((student) => {
-    return student.ra != req.params.ra;
-  });
-  res.send({
-    result: true,
-    message: `O estudante #${req.params.ra} foi excluido com sucesso.`,
-  });
+  return app
+    .database("students")
+    .where({ ra: req.params.ra })
+    .del()
+    .then((response) => {
+      if (response) {
+        res.send({
+          result: true,
+          message: `O estudante #${req.params.ra} foi excluido com sucesso.`,
+        });
+      } else {
+        res.send({
+          result: false,
+          message: `Nao foi possivel excluir o estudante.`,
+        });
+      }
+    });
 });
+
 app.listen(3000);
 
 console.log("server is running...");
