@@ -1,7 +1,7 @@
 $(document).ready(function () {
   if (isEditingMode()) {
-    fetchStudent();
     setReadOnlyFields();
+    fetchStudent();  
   } else {
     $(".loader").hide();
     $(".content-page").show();
@@ -11,9 +11,9 @@ $(document).ready(function () {
     event.preventDefault();
     const body = {
       name: $(this).find("#name").val(),
-      email: event.target.email.value,
       ra: $(this).find("#ra").val(),
       cpf: $(this).find("#cpf").val(),
+      email: event.target.email.value,
     };
 
     let methodEndPoint;
@@ -48,6 +48,12 @@ $(document).ready(function () {
   });
 });
 
+function setReadOnlyFields() {
+  const studentForm = $("#studentForm");
+  studentForm.find("#ra").attr("readonly", true);
+  studentForm.find("#cpf").attr("readonly", true);
+}
+
 function fetchStudent() {
   fetch(`http://localhost:3000/students/find/${getRAFromUrl()}`)
     .then(function (response) {
@@ -64,12 +70,6 @@ function fetchStudent() {
       $(".loader").hide("fast");
       $(".content-page").show("slow");
     });
-}
-
-function setReadOnlyFields() {
-  const studentForm = $("#studentForm");
-  studentForm.find("#ra").attr("readonly", true);
-  studentForm.find("#cpf").attr("readonly", true);
 }
 
 function isEditingMode() {
