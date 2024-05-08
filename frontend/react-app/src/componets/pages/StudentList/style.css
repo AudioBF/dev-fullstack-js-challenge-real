@@ -1,0 +1,26 @@
+.content-page .top-actions{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .content-page .table-list{
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    border: 1px solid #dee2e6;
+  }
+  
+  .content-page .table-list thead{
+    height: 50px;
+    background-color: rgb(97, 147, 196);
+  }
+  
+  .content-page .table-list tr{
+    height: 50px;
+  }
+  
+  .content-page .table-list tbody tr:nth-child(even){
+    background-color:lightblue
+  }

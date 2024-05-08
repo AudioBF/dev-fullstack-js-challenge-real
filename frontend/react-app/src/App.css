@@ -1,38 +1,144 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.main-container {
   display: flex;
-  flex-direction: column;
+  margin: 0px;
+  font-family: sans-serif;
+}
+
+.padding-lr-20 {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.btn {
+  height: 40px;
+  padding: 0 20px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 0.25rem;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  border: 1px solid transparent;
 }
 
-.App-link {
-  color: #61dafb;
+.btn.btn-dark {
+  color: #fff;
+  background-color: #212529;
+  border-color: #212529;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.btn.btn-warning {
+  color: #000;
+  background-color: #ffc107;
+  border-color: #ffc107;
+}
+
+.margin-left-10 {
+  margin-left: 10px;
+}
+
+.margin-right-10 {
+  margin-right: 10px;
+}
+
+
+
+.container {
+  width: 100%;
+}
+
+.container .main-header {
+  background-color: #21252990;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.loader {
+  margin: auto;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  border: 16px solid #f3f3f3;
+  /* Light grey */
+  border-top: 16px solid #3498db;
+  /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+      transform: rotate(0deg);
   }
-  to {
-    transform: rotate(360deg);
+
+  100% {
+      transform: rotate(360deg);
   }
 }
+
+.display-none {
+  display: none;
+}
+
+
+.form{
+  max-width: 700px;
+}
+
+.form-group{
+  border: 1px solid gray;
+  height: 40px;
+  margin-top: 15px;
+  display: flex;
+}
+
+.form-group label{
+  background-color: #ccc;
+  width: 150px;
+  display: flex;
+  padding-left: 20px;
+  align-items: center;
+}
+.form-group input {
+  width: 100%;
+  border: 0px;
+  border-left: 1px solid gray;
+}
+.form .actions {
+  margin-top: 20px;  
+  display: flex;
+  justify-content: right;
+}
+
+
+body{
+  display: flex;
+  margin: 0px;
+}
+
+.padding-lr-20{
+  padding-left :20px;
+  padding-right: 20px;
+}
+
+.container{
+  width: 100%;
+}
+
+.container .main-header{
+  background-color: #21252990;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+}
+
