@@ -1,12 +1,13 @@
 import "./style.css";
+import {Link} from "react-router-dom";
 const Navbar = () => {
     return (
         <nav className="main-nav">
         <header>Modulo Academico</header>
         <ul className="nav-links">
-          <a className="nav-item" href="/#">
+          <Link className="nav-item" to="/#">
             <li>Alunos</li>
-          </a>
+          </Link>
         </ul>
       </nav>
     )
