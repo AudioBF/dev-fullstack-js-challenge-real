@@ -1,7 +1,8 @@
 import React from "react";
 import "./style.css";
 import Loader from "../../shared/Loader";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 
 class StudentListPage extends React.Component {
@@ -22,12 +23,22 @@ class StudentListPage extends React.Component {
     }
 
     onClickRemoveStudent = (ra) => {
-        const confirmation = window.confirm(
-            "Voce realmente deseja excluir esse estudante?"
-        );
-        if (confirmation) {
-            this.deleteStudent(ra);
-        }
+
+        Swal.fire({
+            title: "Voce realmente deseja excluir esse estudante?",
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: "Save",
+            denyButtonText: `Don't save`
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                this.deleteStudent(ra);
+            } else if (result.isDenied) {
+                Swal.fire("Changes are not saved", "", "info");
+            }
+        });
+
     };
 
     deleteStudent = (ra) => {
@@ -39,7 +50,11 @@ class StudentListPage extends React.Component {
                 return response.json();
             })
             .then((data) => {
-                alert(data.message);
+                Swal.fire({
+                    icon: "success",
+                    title: "parabéns",
+                    text: data.message,
+                });
                 this.fetchStudentList();
             });
     };
@@ -48,7 +63,6 @@ class StudentListPage extends React.Component {
         event.preventDefault();
         this.fetchStudentList(event.target.searchInput.value);
     };
-
 
     fetchStudentList = (searchQuery = "") => {
         this.setState({ isLoading: true });
@@ -71,7 +85,7 @@ class StudentListPage extends React.Component {
 
     render() {
         if (this.state.isLoading) {
-            return <Loader/>;
+            return <Loader />;
         }
 
         return (
@@ -129,10 +143,7 @@ class StudentListPage extends React.Component {
                                         </td>
                                     </tr>
                                 );
-
                             })}
-
-
                         </tbody>
                     </table>
                 </div>

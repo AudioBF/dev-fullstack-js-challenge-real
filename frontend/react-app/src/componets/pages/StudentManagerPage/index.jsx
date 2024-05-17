@@ -1,43 +1,69 @@
 import Loader from "../../shared/Loader";
 import "./style.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navigate, Link, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const StudentManagerPage = () => {
 
-    const {id} = useParams();
+    const { id } = useParams();
 
-    const [isRedirect, setIsRedirect] = useState (false);
+    const [isRedirect, setIsRedirect] = useState(false);
     const [isLoading, updateIsLoading] = useState(false);
 
-    const [name, updateName] = useState("")
-    const [email, updateEmail] = useState("")
-    const [cpf, updateCpf] = useState("")
-    const [ra, updateRa] = useState("")
+    const [name, updateName] = useState("");
+    const [email, updateEmail] = useState("");
+    const [fieldCpf, updateFieldCpf] = useState({
+        value: "",
+        isReadonly: false,
+    });
+    const [fieldRa, updateFieldRa] = useState({
+        value: "",
+        isReadonly: false,
+    });
 
-    const isEditingMode = () => {
-        return false;
-    }
-    const getRAFromUrl = () => {
-        return 0;
-    }
+    const fetchStudent = () => {
+        updateIsLoading(true);
+        fetch(`http://localhost:3006/students/find/${id}`)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                updateName(data.name);
+                updateEmail(data.email);
+                updateFieldCpf({
+                    isReadonly: true,
+                    value: data.cpf,
+                });
+                updateFieldRa({
+                    isReadonly: true,
+                    value: data.ra,
+                });
+                updateIsLoading(false);
+            });
+    };
+    useEffect(() => {
+        if (id) {
+            fetchStudent();
+        }
+    }, []);
 
 
     const onSubmitForm = (event) => {
         event.preventDefault();
         const body = {
-            name,
-            ra,
-            cpf,
-            email,
+            name: name,
+            ra: fieldRa.value,
+            cpf: fieldCpf.value,
+            email: email,
         };
 
         let methodEndPoint;
         let urlEndPoint;
 
-        if (isEditingMode()) {
+        if (id) {
             methodEndPoint = "PUT";
-            urlEndPoint = `http://localhost:3006/students/edit/${getRAFromUrl()}`;
+            urlEndPoint = `http://localhost:3006/students/edit/${id}`;
         } else {
             methodEndPoint = "POST";
             urlEndPoint = `http://localhost:3006/students/save`;
@@ -55,11 +81,12 @@ const StudentManagerPage = () => {
                 return response.json();
             })
             .then((data) => {
-                alert(data.message);
-                if (data.status === 400) {
-                    return;
+                if (data.result) {
+                    Swal.fire("Parabéns", data.message, "success");
+                    setIsRedirect(true);
+                }else{
+                    Swal.fire("Ops", data.message, "error");
                 }
-                setIsRedirect(true);
             });
     };
 
@@ -85,8 +112,9 @@ const StudentManagerPage = () => {
                         <label htmlFor="name">Nome</label>
                         <input
                             required type="text"
-                            name="name" id="name"
-                            valeu={name}
+                            name="name"
+                            id="name"
+                            value={name}
                             placeholder="Digite o seu nome"
                             onChange={(event) => {
                                 updateName(event.target.value);
@@ -96,8 +124,9 @@ const StudentManagerPage = () => {
                         <label htmlFor="email">Email</label>
                         <input
                             required type="text"
-                            name="email" id="email"
-                            valeu={email}
+                            name="email"
+                            id="email"
+                            value={email}
                             placeholder="Digite o seu email"
                             onChange={(event) => {
                                 updateEmail(event.target.value);
@@ -105,22 +134,34 @@ const StudentManagerPage = () => {
                     </div>
                     <div className="form-group">
                         <label htmlFor="ra">RA</label>
-                        <input required type="number"
-                            name="ra" id="ra"
-                            valeu={ra}
+                        <input
+                            required type="number"
+                            name="ra"
+                            id="ra"
+                            value={fieldRa.value}
+                            readOnly={fieldRa.isReadonly}
                             placeholder="Digite o seu ra"
                             onChange={(event) => {
-                                updateRa(event.target.value);
+                                updateFieldRa({
+                                    ...fieldRa,
+                                    value: event.target.value,
+                                });
                             }} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="cpf">CPF</label>
-                        <input required type="number"
-                            name="cpf" id="cpf"
-                            valeu={cpf}
+                        <input
+                            required type="number"
+                            name="cpf"
+                            id="cpf"
+                            value={fieldCpf.value}
+                            readOnly={fieldCpf.isReadonly}
                             placeholder="Digite o seu cpf"
                             onChange={(event) => {
-                                updateCpf(event.target.value);
+                                updateFieldCpf({
+                                    ...fieldCpf,
+                                    value: event.target.value,
+                                });
                             }} />
                     </div>
                     <div className="actions">
@@ -136,9 +177,6 @@ const StudentManagerPage = () => {
         </>
     );
 
-
-
-
-}
+};
 
 export default StudentManagerPage;
