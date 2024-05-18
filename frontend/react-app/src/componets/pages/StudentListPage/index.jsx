@@ -4,7 +4,6 @@ import Loader from "../../shared/Loader";
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 
-
 class StudentListPage extends React.Component {
 
     constructor(props) {
@@ -92,9 +91,11 @@ class StudentListPage extends React.Component {
             <>
                 <header className="main-header">Lista de Alunos</header>
                 <div className="padding-lr-20">
-                    <div className="top-actions">
+                    <div className="card">
                         <form
-                            onSubmit={this.onSubmitFormSearch}
+                            onSubmit={(event) => {
+                                this.onSubmitFormSearch(event);
+                            }}
                             id="formSearchStudent"
                             className="form-search"
                         >
@@ -105,7 +106,7 @@ class StudentListPage extends React.Component {
                                 onChange={(event) => {
                                     this.setState({
                                         formSearch: {
-                                            searchInput: event.target.value
+                                            searchInput: event.target.value,
                                         },
                                     });
                                 }}
@@ -117,35 +118,46 @@ class StudentListPage extends React.Component {
                             Cadastrar Aluno
                         </Link>
                     </div>
-                    <table id="studentList" className="table-list">
-                        <thead>
-                            <tr>
-                                <th>Registro Academico</th>
-                                <th>Nome</th>
-                                <th>CPF</th>
-                                <th>Açoes</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    <div className="card">
+                        <table id="studentList" className="table-list">
+                            <thead>
+                                <tr>
+                                    <th>Registro Academico</th>
+                                    <th>Nome</th>
+                                    <th>CPF</th>
+                                    <th>Açoes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                            {this.state.studentsList.map((student) => {
-                                return (
+                                {this.state.studentsList.map((student) => {
+                                    return (
 
-                                    <tr key={student.ra}>
-                                        <td>{student.ra}</td>
-                                        <td>{student.name}</td>
-                                        <td>{student.cpf}</td>
-                                        <td>
-                                            <Link to={`/student/edit/${student.ra}`}>Editar</Link>
-                                            <Link className="removeStudent" onClick={() => {
-                                                this.onClickRemoveStudent(student.ra);
-                                            }} to="/#">Excluir</Link>
-                                        </td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
+                                        <tr key={student.ra}>
+                                            <td>{student.ra}</td>
+                                            <td>{student.name}</td>
+                                            <td>{student.cpf}</td>
+                                            <td>
+                                                <Link className="action-link"
+                                                    to={`/student/edit/${student.ra}`}
+                                                >
+                                                    Editar
+                                                </Link>
+                                                <Link className="removeStudent action-link"
+                                                    onClick={() => {
+                                                        this.onClickRemoveStudent(student.ra);
+                                                    }}
+                                                    to="/#"
+                                                >
+                                                    Excluir
+                                                </Link>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </>
         );

@@ -1,26 +1,58 @@
-.content-page .top-actions{
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .content-page .table-list{
-    margin-top: 20px;
-    width: 100%;
-    text-align: center;
-    border-collapse: collapse;
-    border: 1px solid #dee2e6;
-  }
-  
-  .content-page .table-list thead{
-    height: 50px;
-    background-color: rgb(97, 147, 196);
-  }
-  
-  .content-page .table-list tr{
-    height: 50px;
-  }
-  
-  .content-page .table-list tbody tr:nth-child(even){
-    background-color:lightblue
-  }
+.content-page .card {
+  margin-top: 20px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: rgba(0, 0, 0, 24) 0px 3px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
+.content-page .table-list {
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.content-page .table-list .action-link{
+text-transform: lowercase;
+margin-left: 20px;
+}
+
+.content-page .table-list thead tr {
+  height: 50px;
+  border-top: 1px solid #e9ecef;
+  border-bottom: 3px solid #e9ecef;
+}
+
+.content-page .table-list tbody tr {
+  height: 50px;
+  border-top: 1px solid #e9ecef;
+}
+
+.content-page .table-list tbody tr:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.03)
+}
+
+.content-page .form-search {
+  height: 40px;
+  border: 1px solid #ced4da;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+}
+
+.content-page .form-search input {
+  border: 0px;
+  height: 100%;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.content-page .form-search button {
+  border: 0px;
+  border-left: 1px solid #ced4da;
+  height: 100%;
+  width: 150px;
+}

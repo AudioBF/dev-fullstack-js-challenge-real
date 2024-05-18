@@ -114,7 +114,7 @@ module.exports = class StudentController {
 
   editAction = async (req, res) => {
     const isEditDataValid = this.isEditDataValid(req.body);
-      console.log(isEditDataValid);
+
 
     if (isEditDataValid != true) {
         return res.status(400).send({
