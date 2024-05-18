@@ -45,8 +45,6 @@ body {
   margin-right: 10px;
 }
 
-
-
 .container {
   width: 100%;
 }
@@ -66,34 +64,12 @@ body {
   display: none;
 }
 
-
-.form{
-  max-width: 700px;
-}
-
-.form-group{
-  border: 1px solid gray;
-  height: 40px;
-  margin-top: 15px;
+.card {
+  margin-top: 20px;
+  padding: 20px;
   display: flex;
+  justify-content: space-between;
+  box-shadow: rgba(0, 0, 0, 24) 0px 3px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
 }
-
-.form-group label{
-  background-color: #ccc;
-  width: 150px;
-  display: flex;
-  padding-left: 20px;
-  align-items: center;
-}
-.form-group input {
-  width: 100%;
-  border: 0px;
-  border-left: 1px solid gray;
-}
-.form .actions {
-  margin-top: 20px;  
-  display: flex;
-  justify-content: right;
-}
-
-
