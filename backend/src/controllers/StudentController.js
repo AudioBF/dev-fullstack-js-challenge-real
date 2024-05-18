@@ -9,9 +9,9 @@ module.exports = class StudentController {
     let search = req.params.searchQuery;
     if (search) {
       query
-        .where("ra", search)
-        .orwhere("name", "like", `%${search}%`)
-        .orwhere("cpf", search);
+        .where("ra", "like", `%${search}%`)
+        .orWhere("name", "like", `%${search}%`)
+        .orWhere("cpf", "like", `%${search}%`);
     }
     return query.select().then((data) => {
       res.send(data);
